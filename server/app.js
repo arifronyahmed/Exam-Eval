@@ -1,21 +1,15 @@
 const express = require('express');
+
 const morgan = require('morgan');
+
+const newsLetterRoutes = require('./routes/newsLetterRoutes');
 
 const app = express();
 
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 app.use(express.json());
 
-// newsletter route
-
-app.post('/api/v1/subscribe', (req, res) => {
-  const { email } = req.body;
-  console.log(email);
-
-  res.status(200).json({
-    status: 'success',
-  });
-});
+app.use('/api/v1/subscribe', newsLetterRoutes);
 
 // ***********************************
 module.exports = app;
