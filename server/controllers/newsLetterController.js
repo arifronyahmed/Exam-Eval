@@ -4,7 +4,7 @@ exports.addEmail = async (req, res) => {
   try {
     const newEmail = await Newsletter.create(req.body);
 
-    res.status(200).json({
+    res.status(201).json({
       status: 'success',
       data: {
         newsLetter: newEmail,
