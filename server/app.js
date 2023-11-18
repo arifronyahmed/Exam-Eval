@@ -4,10 +4,13 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const expressSession = require('express-session');
 
+// const AppError = require('./utils/appError');
+const appWiseErrorHandler = require('./controllers/errorController');
 const User = require('./models/userModel');
 const newsLetterRoutes = require('./routes/newsLetterRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const authRoutes = require('./routes/authRoutes');
+const planningsRoutes = require('./routes/planningsRoutes');
 
 const app = express();
 
@@ -16,7 +19,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(
   expressSession({
-    secret: 'your-secret-key',
+    secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: false,
   }),
@@ -34,8 +37,16 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/subscribe', newsLetterRoutes);
 app.use('/api/v1/contact', contactRoutes);
 
-app.use((err, req, res, next) => {
-  res.status(500).send('Something went wrong!');
+app.use('/api/v1/plannings',planningsRoutes); 
+
+app.all('*', (req, res, next) => {
+  res.status(404).json({
+    status: 'fail',
+    message: `can not find ${req.originalUrl}`,
+  });
 });
 
+app.use(appWiseErrorHandler);
+
 module.exports = app;
+

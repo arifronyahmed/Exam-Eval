@@ -1,65 +1,48 @@
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Markdown from 'markdown-to-jsx';
 
-function BlogDetailsPage() {
+function BlogDetails() {
+  const [blogData, setBlogData] = useState({});
   const { id } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:1337/api/blogs/${id}`);
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        setBlogData(data);
+      } catch (error) {
+        console.error('Error fetching blog data:', error.message);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  const { attributes } = blogData.data || {};
+  const { blogTitle, creator, createdAt, updatedAt, blogText } =
+    attributes || {};
+
   return (
-    <div>
-      <h1>Article - {id}</h1>
+    <div className="container mx-auto mt-10 max-w-2xl">
+      <div className="prose lg:prose-xl">
+        <h1 className="mb-4 text-3xl font-bold">{blogTitle}</h1>
+        <p className="mb-2 text-gray-600">
+          By {creator} | {new Date(createdAt).toLocaleDateString()}
+        </p>
+        <p className="mb-4 text-gray-500">
+          Last updated: {new Date(updatedAt).toLocaleDateString()}
+        </p>
+        {/* <Markdown options={{ forceBlock: true }}>{blogText}</Markdown> */}
+      </div>
     </div>
   );
 }
 
-export default BlogDetailsPage;
-
-
-
-
-// import React, { useState, useEffect } from "react";
-// import { useParams } from "react-router-dom";
-
-// const ArticlePage = () => {
-// 	const [article, setArticle] = useState({});
-// 	const [loading, setLoading] = useState(false);
-
-// 	const { id } = useParams();
-
-// 	useEffect(() => {
-// 		setLoading(true);
-// 		fetchData();
-// 	}, []);
-
-// 	const fetchData = async () => {
-// 		try {
-// 			const response = await fetch(
-// 				`http://localhost:1337/api/articles/${id}`,
-// 				{
-// 					method: "GET",
-// 					headers: {
-// 						"Content-type": "application/json",
-// 					},
-// 				}
-// 			);
-// 			const dataJson = await response.json();
-// 			setArticle(dataJson.data);
-// 			setLoading(false);
-// 		} catch (error) {
-// 			console.error(error);
-// 			setLoading(false);
-// 		}
-// 	};
-
-// 	return (
-// 		<>
-// 			{loading ? (
-// 				<p>Loading ...</p>
-// 			) : (
-// 				<>
-// 					<h1>{article?.attributes?.title}</h1>
-// 					<p>{article?.attributes?.content}</p>
-// 				</>
-// 			)}
-// 		</>
-// 	);
-// };
-
-// export default ArticlePage;
+export default BlogDetails;

@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import FaitesDuSportSection from '../components/homePageComponents/FaitesDuSportSection';
 import NewsletterCard from '../components/homePageComponents/NewsletterCard';
+import AdvantagesSection from '../components/homePageComponents/AdvantagesSection';
+import TrainersSection from '../components/homePageComponents/TrainersSection';
+
+const baseUrl = 'http://localhost:1337';
 
 function HomePage() {
   const [cmsHomePageData, setCmsHomePageData] = useState({});
@@ -33,12 +37,20 @@ function HomePage() {
   const faitesDuSportSection =
     cmsHomePageData.data?.attributes?.faitesDuSportSection || {};
   const newsletterCard = cmsHomePageData.data?.attributes?.newsletterCard || {};
+  const imageUrl =
+    cmsHomePageData.data?.attributes?.heroSection.image.data.attributes.formats
+      .large.url || '';
+  const advantagesSection =
+    cmsHomePageData.data?.attributes.advantagesSection || '';
 
   return (
     <>
-      <section className="h-screen bg-gray-700 bg-cover bg-center bg-blend-multiply">
-        <div className="flex h-full flex-col items-center justify-center text-white">
-          <h1 className="mb-4 text-5xl font-bold uppercase">
+      <section
+        className="h-screen bg-gray-700 bg-cover bg-center bg-blend-multiply"
+        style={{ backgroundImage: `url(${baseUrl}${imageUrl})` }}
+      >
+        <div className="flex h-full flex-col items-center justify-center">
+          <h1 className="main-title mb-4 text-6xl">
             {cmsHomePageData.data?.attributes?.heroSection?.title}
           </h1>
           <p className="text-lg">
@@ -46,7 +58,9 @@ function HomePage() {
           </p>
         </div>
       </section>
+      <AdvantagesSection advantagesSection={advantagesSection} />
       <FaitesDuSportSection faitesDuSportSection={faitesDuSportSection} />
+      <TrainersSection />
       <NewsletterCard newsletterCard={newsletterCard} />
     </>
   );

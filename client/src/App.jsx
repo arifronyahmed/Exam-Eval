@@ -6,26 +6,31 @@ import SignupPage from './pages/SignupPage';
 import BlogsPage from './pages/BlogsPage';
 import BlogDetailsPage from './pages/BlogDetailsPage';
 import ContactPage from './pages/ContactPage';
+import PageNotFound from './pages/PageNotFound';
 import Plannings from './pages/Plannings';
 import Footer from './components/shared/Footer';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   return (
-    <BrowserRouter>
-      <>
-        <Navbar />
-        <Routes>
-          <Route index element={<HomePage />} />
-          <Route path="/plannings" element={<Plannings />} />
-          <Route path="/contacts" element={<ContactPage />} />
-          <Route path="/blogs" element={<BlogsPage />} />
-          <Route path="/blogs/:id" element={<BlogDetailsPage/>} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-        </Routes>
-        <Footer/>
-      </>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <>
+          <Navbar />
+          <Routes>
+            <Route index element={<HomePage />} />
+            <Route path="/plannings" element={<Plannings />} />
+            <Route path="/contacts" element={<ContactPage />} />
+            <Route path="/blogs" element={<BlogsPage />} />
+            <Route path="/blogs/:id" element={<BlogDetailsPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+          <Footer />
+        </>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

@@ -1,34 +1,27 @@
 const Newsletter = require('../models/newsLetterModel');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
-exports.addEmail = async (req, res) => {
-  try {
-    const newEmail = await Newsletter.create(req.body);
+exports.addEmail = catchAsync(async (req, res) => {
+  const newEmail = await Newsletter.create(req.body);
 
-    res.status(201).json({
-      status: 'success',
-      data: {
-        newsLetter: newEmail,
-      },
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      message: error,
-    });
+  res.status(201).json({
+    status: 'success',
+    data: {
+      newsLetter: newEmail,
+    },
+  });
+});
+
+exports.deleteEmail = catchAsync(async (req, res, next) => {
+  const newsletter = await Newsletter.findByIdAndDelete(req.params.id);
+
+  if (!newsletter) {
+    return next(new AppError('Newsletter not found', 404));
   }
-};
 
-exports.deleteEmail = async (req, res) => {
-  try {
-    await Newsletter.findByIdAndDelete(req.params.id);
-    res.status(204).json({
-      status: 'success',
-      data: null,
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      message: error,
-    });
-  }
-};
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});

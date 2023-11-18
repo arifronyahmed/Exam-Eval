@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaWolfPackBattalion, FaBars } from 'react-icons/fa6';
 
 function Navbar() {
   const [cmsHeaderData, setCmsHeaderData] = useState({});
+  const [toggleMenu, setToggleMenu] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,32 +25,81 @@ function Navbar() {
 
     fetchData();
   }, []);
+
   const navigationLinks =
     cmsHeaderData.data?.attributes?.navigation?.link || [];
 
   return (
-    <nav className="container relative mx-auto bg-darkishGreen p-6 text-pinkishWhite">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-20">
-          <Link to="/" className="text-2xl font-bold">
-            Pro Arena
-          </Link>
-          <div>
-            <ul className="space-x-8 font-bold lg:flex">
-              {navigationLinks.map((navItem) => (
-                <li key={navItem.id}>
-                  <Link to={navItem.url}>{navItem.title}</Link>
-                </li>
-              ))}
-            </ul>
+    <div className="nav">
+      <nav>
+        <div className="mx-auto max-w-7xl">
+          <div className="w-6xl mx-auto flex justify-between">
+            {/* Primary menu and logo */}
+            <div className="my-6 flex items-center gap-16">
+              {/* logo */}
+              <div>
+                <Link
+                  to="/"
+                  className="flex items-center gap-1 text-4xl font-bold"
+                >
+                  <FaWolfPackBattalion />
+                  <span>Pro-Arena</span>
+                </Link>
+              </div>
+              {/* primary */}
+              <div className="hidden gap-8 lg:flex">
+                {navigationLinks.map((navItem) => (
+                  <Link key={navItem.id} to={navItem.url}>
+                    {navItem.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            {/* secondary */}
+            <div className="flex gap-6">
+              {/* Mobile navigation toggle */}
+              <div className="flex items-center lg:hidden">
+                <button
+                  onClick={() => setToggleMenu(!toggleMenu)}
+                  className="text-xxl"
+                >
+                  <FaBars />
+                </button>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <Link to="/login" className="btn-primary">
+                Login
+              </Link>
+              <Link to="/signup " className="btn-primary">
+                Sign Up
+              </Link>
+            </div>
           </div>
         </div>
-        <div className="items-center space-x-6 font-bold lg:flex">
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign up</Link>
+
+        {/* mobile navigation */}
+        <div
+          className={`fixed z-40 flex w-full origin-top flex-col gap-12 overflow-hidden bg-darkishGreen duration-700 lg:hidden ${
+            !toggleMenu ? 'h-0' : 'h-full'
+          }`}
+        >
+          <div className="px-8">
+            <div className="flex flex-col gap-8  tracking-wider">
+              {navigationLinks.map((navItem) => (
+                <Link
+                  key={navItem.id}
+                  to={navItem.url}
+                  className="font-bold text-pinkishWhite"
+                >
+                  {navItem.title}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }
 

@@ -1,60 +1,68 @@
 import { Link } from 'react-router-dom';
 
 function LoginPage() {
+  const backgroundImageUrl =
+    'https://images.unsplash.com/photo-1599586120429-48281b6f0ece?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
   return (
-    <section className="h-screen bg-gray-600 bg-cover bg-center bg-blend-multiply ">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="text-darkishGreen mt-6 text-center text-3xl font-extrabold uppercase">
-          Sign in to your account
-        </h2>
-        <p className="max-w mt-2 text-center text-sm text-gray-600">
-          Or
-          <Link
-            to="/signup"
-            className="font-medium text-blue-600 hover:text-blue-500"
-          >
-            create an account
-          </Link>
-        </p>
-      </div>
-      <div className="mt-8 w-full sm:mx-auto sm:max-w-md">
-        <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6">
+    <section
+      className="flex h-screen items-center justify-center bg-gray-800 bg-cover bg-center bg-blend-multiply"
+      style={{ backgroundImage: `url(${backgroundImageUrl})` }}
+    >
+      <div className="w-full max-w-md">
+        <div className="flex h-full flex-col justify-center rounded-md bg-pinkishWhite px-8 py-12 shadow-md">
+          <h2 className="mb-6 text-center text-2xl font-extrabold uppercase text-darkishGreen">
+            Connectez-vous à votre compte
+          </h2>
+          <p className="text-center text-sm text-gray-600">
+            Ou{' '}
+            <Link
+              to="/signup"
+              className="font-medium text-blue-600 hover:text-blue-500"
+            >
+              créez un compte
+            </Link>
+          </p>
+
+          <form className="mt-8 space-y-6">
             <div>
-              <label className="form-label">Email</label>
+              <label className="form-label">E-mail</label>
               <div className="mt-1">
                 <input
                   type="text"
                   className="form-input-title"
-                  placeholder="Enter your email address"
+                  placeholder="Entrez votre adresse e-mail"
                 />
               </div>
             </div>
             <div>
-              <label className="form-label">Password</label>
+              <label className="form-label">Mot de passe</label>
               <div className="mt-1">
-                <input type="text" className="form-input-title" />
+                <input
+                  type="password"
+                  className="form-input-title"
+                  placeholder="Entrez votre mot de passe"
+                />
               </div>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input type="checkbox" className="accent-tealBlue" />
                 <label className="ml-2 block text-sm text-gray-900">
-                  Remember Me
+                  Se souvenir de moi
                 </label>
               </div>
               <div className="text-sm">
                 <Link
-                  href="#"
+                  to="#"
                   className="font-medium text-blue-600 hover:text-blue-500"
                 >
-                  Forgot your password?
+                  Mot de passe oublié ?
                 </Link>
               </div>
             </div>
             <div>
-              <button className="bg-tealBlue relative flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                Sign in
+              <button className="w-full rounded-md bg-tealBlue py-2 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Se connecter
               </button>
             </div>
           </form>

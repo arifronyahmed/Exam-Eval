@@ -8,6 +8,7 @@ export default {
         darkishGreen: '#012f32',
         tealBlue: '#227988',
         turquoise: '#2bc9a5',
+        peach: '#FF6969',
       },
     },
   },

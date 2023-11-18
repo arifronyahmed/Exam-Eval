@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import BlogCard from '../components/blogPageComponents/BlogCard';
 import { Link } from 'react-router-dom';
+import BlogCard from '../components/blogPageComponents/BlogCard';
+import LoadingSpinner from '../components/shared/LoadingSpinner';
 
 function BlogsPage() {
   const [cmsBlogPageData, setCmsBlogPageData] = useState({});
@@ -35,11 +36,12 @@ function BlogsPage() {
   }, []);
 
   const { data: blogPosts } = cmsBlogPageData;
-
   return (
     <div className="container mx-auto mt-40 max-w-6xl">
       {loading ? (
-        <p>Loading...</p>
+        <div className="flex h-screen items-center justify-center">
+          <LoadingSpinner />
+        </div>
       ) : (
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           {blogPosts &&
