@@ -49,7 +49,7 @@ function Navbar() {
               {/* primary */}
               <div className="hidden gap-8 lg:flex">
                 {navigationLinks.map((navItem) => (
-                  <Link key={navItem.id} to={navItem.url}>
+                  <Link key={navItem.id} to={navItem.url} className="nav-item">
                     {navItem.title}
                   </Link>
                 ))}
@@ -61,19 +61,23 @@ function Navbar() {
               <div className="flex items-center lg:hidden">
                 <button
                   onClick={() => setToggleMenu(!toggleMenu)}
-                  className="text-xxl"
+                  className="text-xxl mr-4"
                 >
-                  <FaBars />
+                  <FaBars size={24}/>
                 </button>
               </div>
             </div>
-            <div className="flex gap-4">
-              <Link to="/login" className="btn-primary">
-                Login
-              </Link>
-              <Link to="/signup " className="btn-primary">
-                Sign Up
-              </Link>
+            <div className=" hidden flex-row items-center gap-4 md:flex">
+              <div>
+                <Link to="/login" className="btn-primary">
+                  Login
+                </Link>
+              </div>
+              <div>
+                <Link to="/signup " className="btn-primary">
+                  Sign Up
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -84,17 +88,38 @@ function Navbar() {
             !toggleMenu ? 'h-0' : 'h-full'
           }`}
         >
-          <div className="px-8">
-            <div className="flex flex-col gap-8  tracking-wider">
+          <div className="px-6">
+            <div className="flex flex-col gap-2 ">
               {navigationLinks.map((navItem) => (
                 <Link
+                  onClick={() => setToggleMenu(!toggleMenu)}
                   key={navItem.id}
                   to={navItem.url}
-                  className="font-bold text-pinkishWhite"
+                  className="nav-item"
                 >
                   {navItem.title}
                 </Link>
               ))}
+            </div>
+            <div className="flex flex-row items-center gap-4 mt-16">
+              <div>
+                <Link
+                  to="/login"
+                  onClick={() => setToggleMenu(!toggleMenu)}
+                  className="btn-primary"
+                >
+                  Login
+                </Link>
+              </div>
+              <div>
+                <Link
+                  to="/signup "
+                  onClick={() => setToggleMenu(!toggleMenu)}
+                  className="btn-primary"
+                >
+                  Sign Up
+                </Link>
+              </div>
             </div>
           </div>
         </div>

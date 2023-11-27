@@ -37,16 +37,16 @@ function BlogsPage() {
 
   const { data: blogPosts } = cmsBlogPageData;
   return (
-    <div className="container mx-auto mt-40 max-w-6xl">
+    <div className="container mx-auto  md:mt-40 max-w-6xl">
       {loading ? (
         <div className="flex h-screen items-center justify-center">
           <LoadingSpinner />
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+        <div className="mb-4 grid gap-4 md:gap-12 md:p-10 sm:grid-cols-1 md:mb-48 md:grid-cols-2">
           {blogPosts &&
             blogPosts.map((post) => (
-              <Link to={`/blogs/${post.id}`} key={post.id}>
+              <Link to={`/blogs/${post.attributes.slug}`} key={post.id}>
                 <BlogCard post={post.attributes} />
               </Link>
             ))}

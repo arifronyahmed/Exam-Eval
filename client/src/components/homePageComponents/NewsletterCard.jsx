@@ -1,42 +1,48 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { FaEnvelope } from 'react-icons/fa6';
-
-async function submitForm(values, formik) {
-  try {
-    const response = await fetch('/api/v1/newsletter', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    });
-
-    if (response.ok) {
-      formik.resetForm();
-    } else {
-      const responseData = await response.json();
-      if (responseData.error) {
-        formik.setFieldError('email', responseData.error);
-      }
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
+import { useState } from 'react';
 
 function NewsletterCard({ newsletterCard }) {
+  const [loading, setLoading] = useState(false);
+
+  const submitForm = async (values, formik) => {
+    try {
+      const response = await fetch('http://localhost:3001/api/v1/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (response.ok) {
+        formik.resetForm();
+        setLoading(false);
+      } else {
+        const responseData = await response.json();
+        if (responseData.message) {
+          formik.setFieldError('email', responseData.message);
+        }
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       email: '',
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .required('Email address required')
+        .required('Email address is required')
         .email('Invalid email address'),
     }),
     onSubmit: async function (values) {
+      setLoading(true);
       await submitForm(values, formik);
+      setLoading(false); 
     },
   });
 
@@ -44,7 +50,7 @@ function NewsletterCard({ newsletterCard }) {
     <section className="bg-darkishGreen">
       <div className="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
         <div className="mx-auto max-w-screen-md sm:text-center">
-          <h2 className="mb-4 text-3xl font-extrabold tracking-widest text-pinkishWhite sm:text-4xl">
+          <h2 className="main-title mb-4 text-3xl font-bold tracking-widest sm:text-4xl">
             {newsletterCard.newsletterTitle}
           </h2>
           <p className="mx-auto mb-8 max-w-2xl font-light text-gray-500 sm:text-xl md:mb-12">
@@ -77,8 +83,12 @@ function NewsletterCard({ newsletterCard }) {
                   <div className="text-red-700">{formik.errors.email}</div>
                 ) : null}
               </div>
-              <button type="submit" className="btn-primary ml-5 px-4 py-3">
-                {newsletterCard.buttonText}
+              <button
+                type="submit"
+                className="btn-primary ml-5 px-4 py-3"
+                disabled={loading}
+              >
+                {loading ? 'Subscribing...' : 'Subscribe'}
               </button>
             </div>
             <div className="mx-auto max-w-screen-sm text-left text-sm text-gray-500">

@@ -5,9 +5,15 @@ const newsletterSchema = new mongoose.Schema({
     type: String,
     required: [
       true,
-      'To recceive newletters you must provide a valid email address',
+      'To receive newsletters, you must provide a valid email address',
     ],
-    unique: true,
+    validate: {
+      validator: function (value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(value);
+      },
+      message: 'Invalid email address',
+    },
   },
 });
 

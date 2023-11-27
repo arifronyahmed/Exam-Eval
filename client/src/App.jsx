@@ -7,9 +7,9 @@ import BlogsPage from './pages/BlogsPage';
 import BlogDetailsPage from './pages/BlogDetailsPage';
 import ContactPage from './pages/ContactPage';
 import PageNotFound from './pages/PageNotFound';
-import Plannings from './pages/Plannings';
 import Footer from './components/shared/Footer';
 import { AuthProvider } from './contexts/AuthContext';
+import BookingPage from './pages/BookingPage';
 
 function App() {
   return (
@@ -19,10 +19,10 @@ function App() {
           <Navbar />
           <Routes>
             <Route index element={<HomePage />} />
-            <Route path="/plannings" element={<Plannings />} />
+            <Route path="/booking" element={<BookingPage />} />
             <Route path="/contacts" element={<ContactPage />} />
             <Route path="/blogs" element={<BlogsPage />} />
-            <Route path="/blogs/:id" element={<BlogDetailsPage />} />
+            <Route path="/blogs/:slug" element={<BlogDetailsPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="*" element={<PageNotFound />} />

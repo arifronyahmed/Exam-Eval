@@ -27,7 +27,7 @@ function ContactForm() {
       <div>
         <label
           htmlFor="name"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-xl font-medium text-gray-500"
         >
           Name
         </label>
@@ -35,7 +35,7 @@ function ContactForm() {
           <input
             id="name"
             type="text"
-            className="block w-full rounded-md border-gray-300 shadow-sm"
+            className="block w-full rounded-md px-3 py-2 "
             placeholder="Your Name"
             onChange={handleChange}
             value={values.name}
@@ -46,7 +46,7 @@ function ContactForm() {
       <div>
         <label
           htmlFor="email"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-xl font-medium text-gray-500"
         >
           Email
         </label>
@@ -54,7 +54,7 @@ function ContactForm() {
           <input
             id="email"
             type="email"
-            className="block w-full rounded-md border-gray-300 shadow-sm "
+            className="block w-full rounded-md px-3 py-2"
             placeholder="Your Email"
             onChange={handleChange}
             value={values.email}
@@ -65,7 +65,7 @@ function ContactForm() {
       <div>
         <label
           htmlFor="message"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-xl font-medium text-gray-500"
         >
           Message
         </label>
@@ -73,7 +73,7 @@ function ContactForm() {
           <textarea
             id="messageText"
             rows="4"
-            className="block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="block w-full rounded-md px-3 py-2"
             placeholder="Your Message"
             onChange={handleChange}
             value={values.messageText}
@@ -84,10 +84,7 @@ function ContactForm() {
         </div>
       </div>
       <div>
-        <button
-          type="submit"
-          className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white"
-        >
+        <button type="submit" className="btn-primary w-full justify-center">
           Send Message
         </button>
       </div>

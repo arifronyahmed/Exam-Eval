@@ -9,8 +9,8 @@ function LoginPage() {
       style={{ backgroundImage: `url(${backgroundImageUrl})` }}
     >
       <div className="w-full max-w-md">
-        <div className="flex h-full flex-col justify-center rounded-md bg-pinkishWhite px-8 py-12 shadow-md">
-          <h2 className="mb-6 text-center text-2xl font-extrabold uppercase text-darkishGreen">
+        <div className="form-backdrop-style bg-gray/50 flex h-full flex-col justify-center">
+          <h2 className="blog-title mb-6 text-center text-2xl font-extrabold uppercase">
             Connectez-vous à votre compte
           </h2>
           <p className="text-center text-sm text-gray-600">
@@ -47,7 +47,7 @@ function LoginPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input type="checkbox" className="accent-tealBlue" />
-                <label className="ml-2 block text-sm text-gray-900">
+                <label className="ml-2 block text-sm text-gray-600">
                   Se souvenir de moi
                 </label>
               </div>
@@ -61,7 +61,7 @@ function LoginPage() {
               </div>
             </div>
             <div>
-              <button className="w-full rounded-md bg-tealBlue py-2 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+              <button className="btn-primary relative flex w-full justify-center">
                 Se connecter
               </button>
             </div>

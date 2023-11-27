@@ -156,8 +156,8 @@ function SignupForm() {
             onBlur={formik.handleBlur}
             checked={formik.values.agreeToTerms}
           />
-          <label className="ml-2 block text-sm text-gray-900">
-            J'accepte les
+          <label className="form-label ml-2 block text-sm">
+            J'accepte les{' '}
             <Link
               to="#"
               className="font-medium text-blue-600 hover:text-blue-500"
@@ -174,7 +174,7 @@ function SignupForm() {
         <button
           type="button"
           onClick={formik.handleSubmit}
-          className="group relative flex w-full justify-center rounded-md border border-transparent bg-tealBlue px-4 py-2 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="btn-primary relative flex w-full justify-center"
         >
           Créer un compte
         </button>

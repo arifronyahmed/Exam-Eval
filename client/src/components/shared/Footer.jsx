@@ -44,11 +44,11 @@ function Footer() {
     cmsFooterData.data?.attributes?.navigation?.link || [];
 
   return (
-    <footer className="bg-darkishGreen text-pinkishWhite">
-      <div className="container mx-auto max-w-6xl px-5 pb-10 pt-12">
-        <div className="flex flex-col justify-between space-y-24 md:flex-row md:space-y-0">
-          <div className="mt-10 space-y-6">
-            <div className="flex items-center space-x-3 md:-mt-10">
+    <footer className="bg-darkishGreen text-pinkishWhite ">
+      <div className="container mx-auto max-w-6xl px-5 pt-4 pb-2 md:pb-10 md:pt-12">
+        <div className="flex flex-col justify-between md:space-y-24 md:flex-row  space-y-10">
+          <div className="md:mt-10 space-y-2 md:space-y-6">
+            <div className="flex items-center space-x-3 md:mt-10">
               <FaMobileScreen size={30} />
               <div>{telephone}</div>
             </div>
@@ -57,7 +57,7 @@ function Footer() {
               <p className="uppercase">{email}</p>
             </div>
           </div>
-          <div className="flex flex-col space-y-10 text-xl md:flex-row md:space-x-20 md:space-y-0 md:text-base">
+          <div className="flex flex-col space-y-4 text-base md:flex-row md:space-x-20 md:space-y-0 md:text-xl">
             <div className="flex flex-col space-y-3">
               {navigationLinks.map((item) => (
                 <Link key={item.id} to={item.url}>

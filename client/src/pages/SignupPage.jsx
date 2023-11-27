@@ -9,8 +9,8 @@ function SignupPage() {
       style={{ backgroundImage: `url(${backgroundImageUrl})` }}
     >
       <div className="mt-8 w-full sm:mx-auto sm:max-w-md">
-        <div className="rounded-md bg-pinkishWhite px-8 py-12 shadow-md sm:rounded-lg">
-          <h2 className="mb-6 text-center text-3xl font-extrabold uppercase text-darkishGreen">
+        <div className="form-backdrop-style bg-gray/50">
+          <h2 className="main-title mb-6 text-center text-2xl font-bold uppercase">
             Créer un compte
           </h2>
           <SignupForm />

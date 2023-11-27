@@ -1,6 +1,6 @@
 const Card = ({ children }) => {
   return (
-    <div className="max-w-sm overflow-hidden rounded shadow-lg">{children}</div>
+    <div className="max-w-sm overflow-hidden rounded-md shadow-lg">{children}</div>
   );
 };
 
