@@ -12,39 +12,45 @@ import ContactForm from './ContactForm';
 
 function NosCordoneeSection() {
   return (
-    <div className="container mx-auto my-20 flex max-w-7xl flex-row">
+    <div className="container mx-auto my-20 flex max-w-7xl flex-col md:flex-row">
       <div className="flex-1">
-        <div className="flex flex-col">
-          <h4 className="dark-bold-text text-4xl uppercase">NOS COORDONNÉES</h4>
-          <div className="mt-8 flex flex-row">
+        <div className=" mb-8 flex flex-col">
+          <h4 className="contact-icon-title">
+            NOS COORDONNÉES
+          </h4>
+          <div className="contact-icon-item">
             <IoHome size={30} className="mr-6 text-peach" />
-            <h5 className="text-xl text-slate-500">
+            <h5 className="contact-icon-text">
               79, Bd de la Paix – 64000 Pau
             </h5>
           </div>
-          <div className="mt-8 flex flex-row">
+          <div className="contact-icon-item">
             <IoMdMail size={30} className="mr-6 text-peach" />
-            <h5 className="text-xl text-slate-500">contact@pro-arena.com</h5>
+            <h5 className="contact-icon-text">
+              contact@pro-arena.com
+            </h5>
           </div>
-          <div className="mt-8 flex flex-row">
+          <div className="contact-icon-item">
             <IoCallSharp size={30} className="mr-6 text-peach" />
-            <h5 className="text-xl text-slate-500">0758301041</h5>
+            <h5 className="contact-icon-text">0758301041</h5>
           </div>
         </div>
         {/* *************************** */}
-        <div className="mt-8 flex flex-col">
-          <h4 className="dark-bold-text text-4xl uppercase">Acces</h4>
-          <div className="mt-8 flex flex-row">
+        <div className="mx-4 mt-10 flex flex-col md:mt-8">
+          <h4 className="contact-icon-title">
+            Acces
+          </h4>
+          <div className="contact-icon-item">
             <FaCar size={30} className="mr-6 text-peach" />
-            <h5 className="text-xl text-slate-500">parking</h5>
+            <h5 className="contact-icon-text">parking</h5>
           </div>
-          <div className="mt-8 flex flex-row">
+          <div className="contact-icon-item">
             <FaBusSimple size={30} className="mr-6 text-peach" />
-            <h5 className="text-xl text-slate-500">Transportation</h5>
+            <h5 className="contact-icon-text">Transportation</h5>
           </div>
         </div>
         <div className="mt-8 flex flex-col">
-          <h4 className="dark-bold-text text-4xl uppercase">Social Media</h4>
+          <h4 className="contact-icon-title">Social Media</h4>
           <div className="mt-8 flex flex-row">
             <FaFacebook size={30} className="mr-6 text-peach" />
             <FaSquareTwitter size={30} className="mr-6 text-peach" />
@@ -54,8 +60,8 @@ function NosCordoneeSection() {
       </div>
 
       {/* ****************************************************** */}
-      <section className="flex-1">
-        <h4 className="dark-bold-text text-4xl uppercase">Contact Us</h4>
+      <section className="flex-1 mt-20">
+        <h4 className="contact-icon-title">Contact Us</h4>
         <ContactForm />
       </section>
     </div>

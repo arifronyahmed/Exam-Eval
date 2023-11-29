@@ -1,124 +1,77 @@
-import { useState } from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+import React, { useState, useMemo, useCallback } from 'react';
+import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import DialogModal from '../components/bookingPageComponents/DialogModal';
 
 const localizer = momentLocalizer(moment);
 
-const events = [
-  {
-    start: moment('2023-11-27T10:00:00').toDate(),
-    end: moment('2023-11-27T12:00:00').toDate(),
-    title: 'Badminton Court',
-    category: 'badminton',
-  },
-  {
-    start: moment('2023-11-27T13:00:00').toDate(),
-    end: moment('2023-11-27T15:00:00').toDate(),
-    title: 'Squash Court',
-    category: 'squash',
-  },
-  {
-    start: moment('2023-11-27T16:00:00').toDate(),
-    end: moment('2023-11-27T18:00:00').toDate(),
-    title: 'Tennis Court',
-    category: 'tennis',
-  },
+const resourceMap = [
+  { resourceId: 1, resourceTitle: 'Badminton' },
+  { resourceId: 2, resourceTitle: 'Tennis' },
+  { resourceId: 3, resourceTitle: 'Squash' },
 ];
 
+const currentDateTime = new Date();
+
 const BookingCalendar = () => {
+  const [myEvents, setMyEvents] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState(null);
-  const [bookingInfo, setBookingInfo] = useState({
-    name: '',
-    email: '',
-    category: '',
-  });
 
-  const handleSelectSlot = (slotInfo) => {
-    setSelectedSlot(slotInfo);
-  };
+  const handleSelectSlot = useCallback(
+    ({ start, end }) => {
+      const selectedEvent = myEvents.find(
+        (event) =>
+          moment(event.start).isSame(start) && moment(event.end).isSame(end),
+      );
+      setSelectedSlot(selectedEvent);
+      setModalOpen(true);
+    },
+    [myEvents],
+  );
+  const handleSelectEvent = useCallback((event) => {
+    console.log('Selected Event:', event);
+    setSelectedSlot(event);
+    setModalOpen(true);
+  }, []);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setBookingInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
-  };
-
-  const handleBookingSubmit = (e) => {
-    e.preventDefault();
-    // Implement your booking submission logic here
-    const bookingDetails = {
-      start: selectedSlot.start,
-      end: selectedSlot.end,
-      name: bookingInfo.name,
-      email: bookingInfo.email,
-      category: bookingInfo.category,
-    };
-
-    console.log('Booking submitted:', bookingDetails);
-    setBookingInfo({ name: '', email: '', category: '' });
+  const handleModalClose = () => {
+    setModalOpen(false);
     setSelectedSlot(null);
   };
 
+  const { defaultDate, views } = useMemo(
+    () => ({
+      defaultDate: currentDateTime,
+      views: ['day', 'week'],
+    }),
+    [],
+  );
+
   return (
-    <div className="mx-auto my-40 max-w-7xl">
+    <div className="mx-auto my-40 h-screen max-w-7xl">
       <Calendar
+        className="w-full rounded bg-gray-200 p-4 text-gray-700"
         localizer={localizer}
-        events={events}
-        defaultView="day"
-        className="h-96 w-full rounded bg-pink-200 p-4"
+        events={myEvents}
+        defaultDate={defaultDate}
+        defaultView={Views.DAY}
+        views={views}
         selectable
+        step={60}
+        resourceIdAccessor="resourceId"
+        resources={resourceMap}
+        resourceTitleAccessor="resourceTitle"
+        onSelectEvent={handleSelectEvent}
         onSelectSlot={handleSelectSlot}
       />
 
-      {selectedSlot && (
-        <div className="booking-form">
-          <h2>Booking Form</h2>
-          <form onSubmit={handleBookingSubmit}>
-            <p>
-              Selected Slot: {selectedSlot.start.toLocaleString()} to{' '}
-              {selectedSlot.end.toLocaleString()}
-            </p>
-            <label>
-              Name:
-              <input
-                type="text"
-                name="name"
-                value={bookingInfo.name}
-                onChange={handleInputChange}
-                required
-              />
-            </label>
-            <label>
-              Email:
-              <input
-                type="email"
-                name="email"
-                value={bookingInfo.email}
-                onChange={handleInputChange}
-                required
-              />
-            </label>
-            <label>
-              Category:
-              <select
-                name="category"
-                value={bookingInfo.category}
-                onChange={handleInputChange}
-                required
-              >
-                <option value="" disabled>
-                  Select Category
-                </option>
-                <option value="badminton">Badminton</option>
-                <option value="squash">Squash</option>
-                <option value="tennis">Tennis</option>
-              </select>
-            </label>
-            <button type="submit">Submit Booking</button>
-          </form>
-          <button onClick={() => setSelectedSlot(null)}>Cancel</button>
-        </div>
-      )}
+      <DialogModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        selectedSlot={selectedSlot}
+      />
     </div>
   );
 };

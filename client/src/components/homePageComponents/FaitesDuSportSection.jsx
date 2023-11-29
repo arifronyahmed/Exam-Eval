@@ -3,7 +3,7 @@ const baseUrl = 'http://localhost:1337';
 function FaitesDuSportSection({ faitesDuSportSection }) {
   const imageUrl1 =
     faitesDuSportSection?.image1?.data?.attributes?.formats?.medium?.url;
-  console.log(imageUrl1);
+
   return (
     <div className="container m-10 mx-auto max-w-7xl">
       <div className="flex flex-row">

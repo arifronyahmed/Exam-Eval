@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 const validator = require('validator');
-const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  firstName: {
     type: String,
     required: [true, 'Please tell us your name!'],
+  },
+  lastName: {
+    type: String,
+    required: [true, 'Please tell us your last name!'],
   },
   email: {
     type: String,
@@ -14,40 +18,11 @@ const UserSchema = new mongoose.Schema({
     lowercase: true,
     validate: [validator.isEmail, 'Please provide a valid email'],
   },
-  password: {
-    type: String,
-    required: [true, 'Please provide a valid password'],
-    minLength: 8,
-    select: false,
-  },
-  passwordConfirm: {
-    type: String,
-    required: [true, 'Please confirm your password'],
-    validate: {
-      validator: function (el) {
-        return el === this.password;
-      },
-      message: 'Passwords do not match',
-    },
-  },
 });
 
-// Run before every user creation
-UserSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
-
-  this.password = await bcrypt.hash(this.password, 12);
-  this.passwordConfirm = undefined;
-  next();
+UserSchema.plugin(passportLocalMongoose, {
+  usernameField: 'email',
 });
-
-// Check if both given and saved passwords are the same
-UserSchema.methods.correctPassword = async function (
-  candidatePassword,
-  userPassword,
-) {
-  return await bcrypt.compare(candidatePassword, userPassword);
-};
 
 const User = mongoose.model('User', UserSchema);
 

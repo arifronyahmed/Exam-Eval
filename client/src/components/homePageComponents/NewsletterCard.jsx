@@ -42,7 +42,7 @@ function NewsletterCard({ newsletterCard }) {
     onSubmit: async function (values) {
       setLoading(true);
       await submitForm(values, formik);
-      setLoading(false); 
+      setLoading(false);
     },
   });
 

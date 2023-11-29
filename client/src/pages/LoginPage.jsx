@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import LoginForm from '../components/loginPageComponents/LoginForm';
 
 function LoginPage() {
   const backgroundImageUrl =
@@ -22,50 +23,7 @@ function LoginPage() {
               créez un compte
             </Link>
           </p>
-
-          <form className="mt-8 space-y-6">
-            <div>
-              <label className="form-label">E-mail</label>
-              <div className="mt-1">
-                <input
-                  type="text"
-                  className="form-input-title"
-                  placeholder="Entrez votre adresse e-mail"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="form-label">Mot de passe</label>
-              <div className="mt-1">
-                <input
-                  type="password"
-                  className="form-input-title"
-                  placeholder="Entrez votre mot de passe"
-                />
-              </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input type="checkbox" className="accent-tealBlue" />
-                <label className="ml-2 block text-sm text-gray-600">
-                  Se souvenir de moi
-                </label>
-              </div>
-              <div className="text-sm">
-                <Link
-                  to="#"
-                  className="font-medium text-blue-600 hover:text-blue-500"
-                >
-                  Mot de passe oublié ?
-                </Link>
-              </div>
-            </div>
-            <div>
-              <button className="btn-primary relative flex w-full justify-center">
-                Se connecter
-              </button>
-            </div>
-          </form>
+          <LoginForm />
         </div>
       </div>
     </section>

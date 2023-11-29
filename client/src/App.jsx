@@ -8,12 +8,14 @@ import BlogDetailsPage from './pages/BlogDetailsPage';
 import ContactPage from './pages/ContactPage';
 import PageNotFound from './pages/PageNotFound';
 import Footer from './components/shared/Footer';
-import { AuthProvider } from './contexts/AuthContext';
+
 import BookingPage from './pages/BookingPage';
+import AuthProvider from './auth/AuthProvider';
 
 function App() {
   return (
     <AuthProvider>
+      {' '}
       <BrowserRouter>
         <>
           <Navbar />

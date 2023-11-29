@@ -50,7 +50,7 @@ function HomePage() {
         style={{ backgroundImage: `url(${baseUrl}${imageUrl})` }}
       >
         <div className="flex h-full max-w-6xl flex-col items-center justify-center mx-auto">
-          <h1 className="main-title mb-4 text-6xl font-semibold">
+          <h1 className="main-title mb-4 text-4xl ml-4 md:text-6xl font-semibold">
             {cmsHomePageData.data?.attributes?.heroSection?.title}
           </h1>
           <p className="text-lg">

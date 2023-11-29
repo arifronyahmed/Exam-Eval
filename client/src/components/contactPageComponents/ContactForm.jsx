@@ -23,7 +23,7 @@ function ContactForm() {
   });
 
   return (
-    <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+    <form className="mt-8 space-y-6 mx-4" onSubmit={handleSubmit}>
       <div>
         <label
           htmlFor="name"

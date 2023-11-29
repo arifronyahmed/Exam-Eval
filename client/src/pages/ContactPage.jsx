@@ -13,14 +13,14 @@ function ContactPage() {
         }}
       >
         <div className="mx-auto flex h-60 max-w-7xl items-center">
-          <h1 className="main-title w-1/2 text-6xl font-bold">
+          <h1 className="main-title ml-6 w-1/2 text-3xl font-bold md:text-6xl">
             UNE QUESTION ? Contactez-nous
           </h1>
         </div>
       </div>
       <NosCordoneeSection />
 
-      <section className="container mx-auto mb-20 flex max-w-7xl flex-row gap-4">
+      <section className="container mx-auto mb-20 flex max-w-7xl flex-col gap-4 md:flex-row">
         <ContactMap />
         <div>
           <div className="flex flex-col ">

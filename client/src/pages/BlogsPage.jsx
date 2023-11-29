@@ -43,7 +43,7 @@ function BlogsPage() {
           <LoadingSpinner />
         </div>
       ) : (
-        <div className="mb-4 grid gap-4 md:gap-12 md:p-10 sm:grid-cols-1 md:mb-48 md:grid-cols-2">
+        <div className="mb-8 grid gap-4 md:gap-12 md:p-10 sm:grid-cols-1 md:mb-48 md:grid-cols-2">
           {blogPosts &&
             blogPosts.map((post) => (
               <Link to={`/blogs/${post.attributes.slug}`} key={post.id}>

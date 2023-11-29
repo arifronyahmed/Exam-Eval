@@ -60,9 +60,16 @@
   .nav-item:hover {
     @apply hover:teal-gradient transition delay-150 duration-100 ease-in-out hover:-translate-y-1 hover:scale-110;
   }
+  .contact-icon-item {
+    @apply mt-6 flex flex-row md:mt-8;
+  }
+  .contact-icon-title {
+    @apply dark-bold-text text-2xl uppercase md:text-4xl;
+  }
+  .contact-icon-text {
+    @apply text-lg text-slate-500 md:text-xl;
+  }
 }
-
-
 
 .nav {
   height: 100%;
