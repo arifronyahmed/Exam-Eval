@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import  { useState, useMemo, useCallback } from 'react';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';

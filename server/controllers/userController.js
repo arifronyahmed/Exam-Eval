@@ -32,7 +32,6 @@ exports.getUserById = catchAsync(async (req, res, next) => {
 
 // Update user information
 exports.updateUser = catchAsync(async (req, res, next) => {
-
   const updatedUser = await User.findByIdAndUpdate(
     req.params.id,
     { $set: req.body },
@@ -67,3 +66,5 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
     data: null,
   });
 });
+
+

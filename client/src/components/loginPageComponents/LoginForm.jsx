@@ -1,57 +1,35 @@
-import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
-import { useAuthContext } from '../../context/AuthContext';
-import { setToken } from '../../helpers';
+import { useState } from 'react';
 
 function LoginForm() {
-  const { setUser } = useAuthContext();
-  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const validationSchema = Yup.object({
-    email: Yup.string()
-      .email('Adresse e-mail invalide')
-      .required("L'adresse e-mail est requise"),
-    password: Yup.string().required('Le mot de passe est requis'),
-  });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validationSchema,
-    onSubmit: async (values) => {
-      try {
-        const response = await fetch(
-          'http://localhost:3001/api/v1/auth/login',
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(values),
-          },
-        );
+    try {
+      const values = {
+        email: email,
+        password: password,
+      };
 
-        console.log(response);
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setToken(data.token);
+      const response = await fetch('http://localhost:3001/api/v1/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
 
-          setUser({
-            email: data.email,
-          });
-          navigate('/booking')
-          formik.resetForm();
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <form className="mt-8 space-y-6" onSubmit={formik.handleSubmit}>
+    <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
       <div>
         <label className="form-label">E-mail</label>
         <div className="mt-1">
@@ -61,13 +39,9 @@ function LoginForm() {
             placeholder="Entrez votre adresse e-mail"
             id="email"
             name="email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
-          {formik.touched.email && formik.errors.email ? (
-            <div className="text-red-500">{formik.errors.email}</div>
-          ) : null}
         </div>
       </div>
       <div>
@@ -79,31 +53,9 @@ function LoginForm() {
             placeholder="Entrez votre mot de passe"
             id="password"
             name="password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
-          {formik.touched.password && formik.errors.password ? (
-            <div className="text-red-500">{formik.errors.password}</div>
-          ) : null}
-        </div>
-      </div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            className="accent-tealBlue"
-            id="rememberMe"
-            name="rememberMe"
-            checked={formik.values.rememberMe}
-            onChange={formik.handleChange}
-          />
-          <label
-            className="ml-2 block text-sm text-gray-600"
-            htmlFor="rememberMe"
-          >
-            Se souvenir de moi
-          </label>
         </div>
       </div>
       <div>

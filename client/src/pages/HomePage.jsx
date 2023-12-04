@@ -1,39 +1,25 @@
-import { useEffect, useState } from 'react';
 import FaitesDuSportSection from '../components/homePageComponents/FaitesDuSportSection';
 import NewsletterCard from '../components/homePageComponents/NewsletterCard';
 import AdvantagesSection from '../components/homePageComponents/AdvantagesSection';
 import TrainersSection from '../components/homePageComponents/TrainersSection';
-
+import useFetch from '../useFetch';
+import LoadingSpinner from '../components/shared/LoadingSpinner';
 const baseUrl = 'http://localhost:1337';
 
 function HomePage() {
-  const [cmsHomePageData, setCmsHomePageData] = useState({});
+  const url = `${baseUrl}/api/home-page?populate=deep`;
+  const { data: cmsHomePageData, loading } = useFetch(url);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          'http://localhost:1337/api/home-page?populate=deep',
-          {
-            method: 'GET',
-            headers: {
-              'Content-type': 'application/json',
-            },
-          },
-        );
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+  if (loading) {
+    return (
+      <div className="container mx-auto max-w-6xl md:mt-40">
+        <div className="flex h-screen items-center justify-center">
+          <LoadingSpinner />
+        </div>
+      </div>
+    );
+  }
 
-        const data = await response.json();
-        setCmsHomePageData(data);
-      } catch (error) {
-        console.error('Error fetching CMS data:', error.message);
-      }
-    };
-
-    fetchData();
-  }, []);
   const faitesDuSportSection =
     cmsHomePageData.data?.attributes?.faitesDuSportSection || {};
   const newsletterCard = cmsHomePageData.data?.attributes?.newsletterCard || {};
@@ -49,8 +35,8 @@ function HomePage() {
         className="h-screen bg-gray-700 bg-cover bg-center bg-blend-multiply"
         style={{ backgroundImage: `url(${baseUrl}${imageUrl})` }}
       >
-        <div className="flex h-full max-w-6xl flex-col items-center justify-center mx-auto">
-          <h1 className="main-title mb-4 text-4xl ml-4 md:text-6xl font-semibold">
+        <div className="mx-auto flex h-full max-w-6xl flex-col items-center justify-center">
+          <h1 className="main-title mb-4 ml-4 text-4xl font-semibold md:text-6xl">
             {cmsHomePageData.data?.attributes?.heroSection?.title}
           </h1>
           <p className="text-lg">

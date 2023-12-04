@@ -10,29 +10,25 @@ import PageNotFound from './pages/PageNotFound';
 import Footer from './components/shared/Footer';
 
 import BookingPage from './pages/BookingPage';
-import AuthProvider from './auth/AuthProvider';
 
 function App() {
   return (
-    <AuthProvider>
-      {' '}
-      <BrowserRouter>
-        <>
-          <Navbar />
-          <Routes>
-            <Route index element={<HomePage />} />
-            <Route path="/booking" element={<BookingPage />} />
-            <Route path="/contacts" element={<ContactPage />} />
-            <Route path="/blogs" element={<BlogsPage />} />
-            <Route path="/blogs/:slug" element={<BlogDetailsPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-          <Footer />
-        </>
-      </BrowserRouter>
-    </AuthProvider>
+    <BrowserRouter>
+      <>
+        <Navbar />
+        <Routes>
+          <Route index element={<HomePage />} />
+          <Route path="/booking" element={<BookingPage />} />
+          <Route path="/contacts" element={<ContactPage />} />
+          <Route path="/blogs" element={<BlogsPage />} />
+          <Route path="/blogs/:slug" element={<BlogDetailsPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+        <Footer />
+      </>
+    </BrowserRouter>
   );
 }
 

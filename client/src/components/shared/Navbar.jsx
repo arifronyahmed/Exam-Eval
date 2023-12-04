@@ -63,20 +63,8 @@ function Navbar() {
                   onClick={() => setToggleMenu(!toggleMenu)}
                   className="text-xxl mr-4"
                 >
-                  <FaBars size={24}/>
+                  <FaBars size={24} />
                 </button>
-              </div>
-            </div>
-            <div className=" hidden flex-row items-center gap-4 md:flex">
-              <div>
-                <Link to="/login" className="btn-primary">
-                  Login
-                </Link>
-              </div>
-              <div>
-                <Link to="/signup " className="btn-primary">
-                  Sign Up
-                </Link>
               </div>
             </div>
           </div>
@@ -100,26 +88,6 @@ function Navbar() {
                   {navItem.title}
                 </Link>
               ))}
-            </div>
-            <div className="flex flex-row items-center gap-4 mt-16">
-              <div>
-                <Link
-                  to="/login"
-                  onClick={() => setToggleMenu(!toggleMenu)}
-                  className="btn-primary"
-                >
-                  Login
-                </Link>
-              </div>
-              <div>
-                <Link
-                  to="/signup "
-                  onClick={() => setToggleMenu(!toggleMenu)}
-                  className="btn-primary"
-                >
-                  Sign Up
-                </Link>
-              </div>
             </div>
           </div>
         </div>

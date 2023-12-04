@@ -1,49 +1,23 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Markdown from 'react-markdown';
 
 import { IoMdArrowRoundBack } from 'react-icons/io';
 
 import Button from '../components/shared/Button';
-
 import LoadingSpinner from '../components/shared/LoadingSpinner';
+import useFetch from '../useFetch';
 
 const baseUrl = 'http://localhost:1337';
 
 function BlogDetails() {
-  const [blogData, setBlogData] = useState({});
-  const [loading, setLoading] = useState(true);
   const { slug } = useParams();
   const navigate = useNavigate();
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:1337/api/slugify/slugs/blog/${slug}?populate=deep`,
-          {
-            method: 'GET',
-          },
-        );
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        setBlogData(data);
-        console.log(data);
-      } catch (error) {
-        console.error('Error fetching blog data:', error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [slug]);
+  const url = `${baseUrl}/api/slugify/slugs/blog/${slug}?populate=deep`;
+  const { data: blogData, loading } = useFetch(url);
 
   const { blogTitle, creator, createdAt, updatedAt, blogText, blogImage } =
-    blogData.data?.attributes ?? {};
+    blogData?.data?.attributes ?? {};
 
   const imageUrl = blogImage?.data?.attributes?.formats?.large?.url;
 
@@ -56,7 +30,7 @@ function BlogDetails() {
       ) : (
         <>
           <div
-            className="container h-48 bg-gray-400 bg-cover bg-fixed bg-center  bg-blend-multiply md:h-96"
+            className="container h-48 bg-gray-400 bg-cover bg-fixed bg-center bg-blend-multiply md:h-96"
             style={{ backgroundImage: `url(${baseUrl}${imageUrl})` }}
           ></div>
 
@@ -66,7 +40,7 @@ function BlogDetails() {
               <span className="md:ml-4">Back</span>
             </Button>
             <div className="md:prose-xl">
-              <h1 className="blog-title mx-2 mb-2 text-2xl font-bold  md:mb-4 md:text-4xl">
+              <h1 className="blog-title mx-2 mb-2 text-2xl font-bold md:mb-4 md:text-4xl">
                 {blogTitle}
               </h1>
               <p className="font-lg m-2 mt-4 font-semibold capitalize text-gray-500 md:mt-10 ">
